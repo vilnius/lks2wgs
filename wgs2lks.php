@@ -58,7 +58,7 @@
 	}
 
 	// LKS-94 to WGS-84
-	function grid2geo($lat, $lon) {
+	function grid2geo($x, $y) {
 		$pi = pi();
 		$distsize = 3;
 
@@ -66,7 +66,7 @@
 
 				$k = 0.9998;  		$a = 6378137;  		$f = 1 / 298.257223563;  		$b = $a * (1 - $f); 		$e2 = ($a * $a - $b * $b) / ($a * $a);  		$e = sqrt($e2);  		$ei2 = ($a * $a - $b * $b) / ($b * $b); 		$ei = sqrt($ei2); 		$n = ($a - $b) / ($a + $b);
 		$G = $a * (1 - $n) * (1 - $n * $n) * (1 + (9 / 4) * $n * $n + (255 / 64) * pow($n, 4)) * ($pi / 180); 
-		$north = ($lat - 0) * $units;  		$east = ($lon - 500000) * $units; 		$m = $north / $k;  		$sigma = ($m * $pi) / (180 * $G);
+		$north = ($y - 0) * $units;  		$east = ($x - 500000) * $units; 		$m = $north / $k;  		$sigma = ($m * $pi) / (180 * $G);
 
 				$footlat = $sigma + ((3 * $n / 2) - (27 * pow($n, 3) / 32)) * sin(2 * $sigma) + ((21 * $n * $n / 16) - (55 * pow($n, 4) / 32)) * sin(4 * $sigma) + (151 * pow($n, 3) / 96) * sin(6 * $sigma) + (1097 * pow($n, 4) / 512) * sin(8 * $sigma);
 		$rho = $a * (1 - $e2) / pow(1 - ($e2 * sin($footlat) * sin($footlat)), (3 / 2)); 		$nu = $a / sqrt(1 - ($e2 * sin($footlat) * sin($footlat))); 		$psi = $nu / $rho;
